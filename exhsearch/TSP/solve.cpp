@@ -1,30 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m; // cur: current city
-int minEdge = INT_MAX;
-int minDist = INT_MAX; // min distance
-int dist = 0; // current distance
-int start = 1;
+int n, m, c[21], d[21][21], best = INT_MAX;
+int visited[21];
+int min_distance = INT_MAX;
 
-void solve(map<int, int> *edges, bool *visited, int* path, int k) { // k: k-th visited city
-  for (int v = 1; v <= n; v++) {
-    if (!visited[v] && edges[path[k-1]].find(v) != edges[path[k-1]].end()) {
-      path[k] = v;
-      visited[v] = true;
-      dist += edges[path[k-1]][path[k]];
-      if (k == n) {
-        if (dist + edges[path[k]][1] < minDist) {
-          minDist = dist + edges[path[k]][1];
-        }
-      } else {
-        int estimateDist = dist + (n - k + 1) * minEdge;
-        if (estimateDist < minDist) {
-          solve(edges, visited, path, k+1);
-        } 
-      }
-      dist -= edges[path[k-1]][path[k]];
-      visited[v] = false;
+void solve(int k, int prev, int distance) {
+  if (k > n) {
+    if (d[prev][1] != 0){
+      best = min(best, distance + d[prev][1]);
+      return;
+    }
+  }
+  for (int i = 2; i <= n; i++) {
+    if (!visited[i] && d[prev][i] != 0) {
+      visited[i] = 1;
+      int test = distance + d[prev][i];
+      if (test + (n-k+1) * min_distance < best) {
+        solve(k+1, i, test);
+      }  
+      visited[i] = 0;
     }
   }
 }
@@ -34,23 +29,13 @@ int main() {
   cin.tie(0);
 
   cin >> n >> m;
-  map<int, int> edges[n+1];
-  bool visited[n+1];
-  int path[n+1];
-
   while (m--) {
-    int u,v,w;
-    cin >> u >> v >> w;
-    edges[u][v] = w;
-    if (w < minEdge) minEdge = w;
+    int c1,c2, dis;
+    cin >> c1 >> c2 >> dis;
+    min_distance = min(min_distance, dis);
+    d[c1][c2] = dis;
   }
-
-  for (int i = 0; i <= n; i++) {
-    visited[i] = false;
-  }
-  visited[start] = true;
-  path[start] = start;
-  solve(edges, visited, path, 2);
-  cout << minDist << endl;
+  solve(2, 1, 0);
+  cout << best << endl;
   return 0;
 }

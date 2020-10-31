@@ -56,8 +56,7 @@ int main() {
   while (k--) {
     int c1,c2;
     cin >> c1 >> c2;
-    c[c1][c2] = 1;
-    c[c2][c1] = 1;
+    c[c1][c2] = c[c2][c1] = 1;
   }
 
   solve(1);

@@ -7,10 +7,23 @@ using namespace std;
 */
 
 int n, c[23][23], best = INT_MAX;
-int mark[23];
+int mark[12];
 
-void solve(int k, int sum) {
-
+void solve(int k, int prev, int distance) {
+  if (k > n) {
+    best = min(distance + c[prev][0], best);
+    return;
+  }
+  for (int i = 1; i <= n; i++) {
+    if (!mark[i]) {
+      int test = distance + c[prev][i] + c[i][i+n];
+      if (test < best) {
+        mark[i] = 1;
+        solve(k+1, i+n, test);
+        mark[i] = 0;
+      }
+    }
+  }
 }
 
 int main() {
@@ -23,6 +36,7 @@ int main() {
       cin >> c[i][j];
     }
   }
-  solve(1, 0);
+  solve(1, 0, 0);
+  cout << best << endl;
   return 0;
 }

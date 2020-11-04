@@ -2,18 +2,7 @@
 using namespace std;
 
 int n, a[10001], mark[10001], x[10001];
-bool t = false;
-bool stop = false;
-
-void check() {
-  for (int i = 1; i <= n; i++) {
-    if (a[i] != x[i]) {
-      t = false;
-      return;
-    };
-  }
-  t = true;
-}
+bool found_same = false, has_result = false;
 
 void print() {
   for (int i = 1; i<=n; i++) {
@@ -24,23 +13,22 @@ void print() {
 
 void solve(int k) {
   if (k > n) {
-    if (t) {
+    if (found_same) {
       print();
-      stop = true;
+      has_result = true;
       return;
     }
-    check();
-    return;
+    found_same = true;
   };
-  if (!stop) {
+  if (!has_result) {
     for (int i = 1; i <= n; i++) {
-      if (!mark[i]) {
+      if (!mark[i] && (found_same || i == a[k])) {
         mark[i] = 1;
         x[k] = i;
         solve(k+1);
         mark[i] = 0;
       }
-    }
+    }  
   }
 }
 
@@ -52,5 +40,6 @@ int main() {
     cin >> a[i];
   }
   solve(1);
+  if (!has_result) cout << -1 << endl; 
   return 0;
 }

@@ -1,30 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
+int n, a[10001], mark[10001], x[10001];
+bool t = false;
+bool stop = false;
 
-void solve(int k, int* a) {
-  if (a[k] < n) {
-    a[k]++;
-    
+void check() {
+  for (int i = 1; i <= n; i++) {
+    if (a[i] != x[i]) {
+      t = false;
+      return;
+    };
   }
+  t = true;
+}
 
+void print() {
+  for (int i = 1; i<=n; i++) {
+    cout << x[i] << ' ';
+  }
+  cout << endl;
+}
+
+void solve(int k) {
+  if (k > n) {
+    if (t) {
+      print();
+      stop = true;
+      return;
+    }
+    check();
+    return;
+  };
+  if (!stop) {
+    for (int i = 1; i <= n; i++) {
+      if (!mark[i]) {
+        mark[i] = 1;
+        x[k] = i;
+        solve(k+1);
+        mark[i] = 0;
+      }
+    }
+  }
 }
 
 int main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
-
-  int n;
   cin >> n;
-  int a[n + 1];
   for (int i = 1; i <= n; i++) {
-    int t;
-    cin >> t;
-    a[i] = t;
+    cin >> a[i];
   }
-  
-  solve(n, a);
-
+  solve(1);
   return 0;
 }

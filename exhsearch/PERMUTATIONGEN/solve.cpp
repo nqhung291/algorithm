@@ -20,15 +20,14 @@ void solve(int k) {
     }
     found_same = true;
   };
-  if (!has_result) {
-    for (int i = 1; i <= n; i++) {
-      if (!mark[i] && (found_same || i == a[k])) {
-        mark[i] = 1;
-        x[k] = i;
-        solve(k+1);
-        mark[i] = 0;
-      }
-    }  
+  for (int i = 1; i <= n; i++) {
+    if (has_result) return;
+    if (!mark[i] && (found_same || i == a[k])) {
+      mark[i] = 1;
+      x[k] = i;
+      solve(k+1);
+      mark[i] = 0;
+    }
   }
 }
 

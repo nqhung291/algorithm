@@ -3,6 +3,7 @@ using namespace std;
 
 /*
   nCr mod p = (fact(n) * modInverse(fact[r]) % p * modInverse(fact[n-r]) % p) % p
+  
 */
 int main() {
   ios_base::sync_with_stdio(0);

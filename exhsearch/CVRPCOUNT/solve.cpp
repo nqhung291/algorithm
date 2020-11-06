@@ -26,49 +26,35 @@ k <= n
 #include <bits/stdc++.h>
 using namespace std;
 
-int n,k,q,d[11],mark[11]; // n clients, k trucks, capacity q
-int r[6][11];
-int low, high;
+int n,k,q,d[11],x[11]; // n clients, k trucks, capacity q, x: nghiem client - truck
+int load[6],visited[6]; // load: current load of truck i, visited: number of client truck i visited
 int res = 0;
+int t = 0; // t: number of truck is visited at least one client
 
-// i: xe thu i, lc: limit client, cc: current client, p: current package, f: so client da duoc phan cho cac xe truoc
-void find_client(int i, int lc, int cc, int p, int f) {
-  if (cc > lc) {
-    // TODO
-    solve(i+1, f+lc);
-    return;
+void print_array(int* arr, int l) {
+  for (int i=1;i<=l;i++) {
+    cout << arr[i] << ' ';
   }
-  for (int c=1; c<=n; c++) {
-    if (!mark[c]) {
-      if (p + d[c] < q) { // co the toi uu them duoc
-        mark[c] = 1;
-        r[i][cc] = c;
-        find_client(i, lc, cc+1, p + d[c], f);
-        mark[c] = 0;
-      }
-    }
-  }
+  cout << endl;
 }
-
-// i: xe thu i
-// f: so client da duoc phan cho cac xe truoc
-void solve(int i, int f) {
-  if (i > k) {
+// c: client c-th
+void solve(int c) {
+  if (c > n) {
+    print_array(x,n);
     res++;
     return;
-  };
-  if (i == k) {
-    low = n - f;
-    high = n - f;
-  } else {
-    low = 1;
-    high = n - f - (k - i);
   }
-  
-  for (int j=low;j<=high;j++) {
-    // tim clients phu hop voi xe thu i
-    find_client(i, j, 0, 0, f);
-    // solve(i+1, f+j);
+  for (int i=1;i<=k;i++) {
+    if (visited[i] >= n-(c-1)-(k-t-1)) continue;
+    if (load[i] + d[c] > q) continue;
+    x[c] = i;
+    t += (visited[i] == 0);
+    visited[i]++;
+    load[i]+=d[c];
+    solve(c+1);
+    visited[i]--;
+    t -= (visited[i] == 0);
+    load[i]-=d[c];
   }
 }
 
@@ -80,8 +66,7 @@ int main() {
   for (int i=1;i<=n;i++) {
     cin >> d[i];
   }
-  solve(1, 0);
+  solve(1);
   cout << res << endl;
-
   return 0;
 }

@@ -25,10 +25,6 @@ int main() {
   cin.tie(0);
 
   cin >> n >> k;
-  if (n<3) {
-    cout << 0 << endl;
-    return 0;
-  }
   for (int i=1;i<=n;i++) {
     cin >> a[i];
   }
@@ -37,8 +33,17 @@ int main() {
     int l=i+1, r=n;
     while (l < r) {
       if (a[l] + a[r] == k - a[i]) {
+        int lnum = 1, rnum = 1;
+        while (l < r - 1 && a[l] == a[l+1]) {
+          lnum++;
+          l++;
+        }
+        while (l < r - 1 && a[r] == a[r-1]) {
+          rnum++;
+          r--;
+        } 
+        res += lnum * rnum;
         l++; r--;
-        res++;
       } else if (a[l] + a[r] > k - a[i]) {
         r--;
       } else {

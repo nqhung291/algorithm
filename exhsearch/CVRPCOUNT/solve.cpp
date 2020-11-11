@@ -6,18 +6,6 @@ int N,K,Q,d[MAX];
 int R[MAX][MAX], load[MAX], visited[MAX], visited_cnt = 0;
 int ans = 0;
 
-void printRes() {
-  for (int i=1; i<MAX;i++) {
-    if (R[i][1] == 0) break;
-    for (int j=0; j<MAX; j++) {
-      cout << R[i][j] << ' ';
-      if (j > 0 && R[i][j] == 0) break;
-    }
-    cout << endl;
-  }
-  cout << "--------------" << endl;
-}
-
 bool checkJ(int i, int j, int v) {
   if (v > 0 && visited[v]) return false;
   if (load[i] + d[v] > Q) return false;
@@ -27,7 +15,6 @@ bool checkJ(int i, int j, int v) {
 
 void solve_j(int i, int j) {
   if (i > K) {
-    // printRes();
     ans++;
     return;
   }

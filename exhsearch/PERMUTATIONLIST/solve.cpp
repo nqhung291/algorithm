@@ -1,3 +1,12 @@
+/*
+Cho 1 một số n. Đưa ra hoán vị độ dài n thứ k trong thứ tự từ điển.
+
+Input
+Dòng đầu ghi 2 số nguyên dương n,k (n≤104,k≤109) cách nhau bởi dấu cách.
+
+Output
+Ghi ra hoán vị thứ k trên một dòng duy nhất, các thành phần cách nhau bởi dấu cách. Nếu không tồn tại thì ghi ra -1.
+*/
 #include <bits/stdc++.h>
 using namespace std;
 int n,k;
@@ -30,7 +39,7 @@ int main() {
   for (int i=1;i<=n;i++) {
     v.push_back(i);
   }
-  k--;
+  k--; // working with index is alway 0 based, length is 1-based
   for (int i=1;i<=n;i++) {
     int index = fact[n-i] > 0 ? k / fact[n-i] : 0;
     int num = get_number_from_index(index);

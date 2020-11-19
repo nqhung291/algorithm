@@ -18,36 +18,23 @@ Output:
 #include <bits/stdc++.h>
 using namespace std;
 
-int n,k,a[5001],res=0;
-
+int n,K,a[5001];
+int cnt[100001];
+long long res = 0;
 int main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
 
-  cin >> n >> k;
+  cin >> n >> K;
   for (int i=1;i<=n;i++) {
     cin >> a[i];
   }
-  sort(a, a+n);
-  for (int i=1;i<=n-2;i++) {
-    int l=i+1, r=n;
-    while (l < r) {
-      if (a[l] + a[r] == k - a[i]) {
-        int lnum = 1, rnum = 1;
-        while (l < r - 1 && a[l] == a[l+1]) {
-          lnum++;
-          l++;
-        }
-        while (l < r - 1 && a[r] == a[r-1]) {
-          rnum++;
-          r--;
-        } 
-        res += lnum * rnum;
-        l++; r--;
-      } else if (a[l] + a[r] > k - a[i]) {
-        r--;
-      } else {
-        l++;
+  sort(a+1, a+n);
+  for (int j=1;j<=n;j++) {
+    cnt[a[j-1]]++;
+    for (int k=j+1;k<=n;k++) {
+      if (K - a[j] - a[k] > 0) {
+        res += cnt[K - a[j] - a[k]];
       }
     }
   }

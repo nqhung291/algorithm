@@ -34,7 +34,7 @@ string first(int k, int n) {
 }
 
 long long cnt(int n) { // xau f(n) chua bao nhieu xau p
-  if (n <= 1) return f[n] == p ? 1 : 0;
+  if (n <= 1) return f[n] == p;
   if (save[n] != -1) return save[n];
   long long ans = cnt(n-1) + cnt(n-2);
   // last: lay p.size() - 1 ky tu cuoi cua xau f[n-1]

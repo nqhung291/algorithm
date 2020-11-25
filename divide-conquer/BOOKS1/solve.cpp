@@ -16,7 +16,7 @@ bool check(ll limit) {
   int cnt = k; // index of current scriber
   ll curr = 0; // number of page for current scriber
   for (int i=m;i>=1;i--) { // start from m-th books
-    if (curr + p[i] > limit || i < cnt) {
+    if (curr + p[i] > limit || i < cnt) { // if number of pages exceeds limit or the number of books remains < number of scriber remains
       curr = p[i];
       cnt--;
       flag[i] = true;

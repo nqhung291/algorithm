@@ -35,14 +35,16 @@ int main() {
     tmax = max(tmax, t[i]);
   }
   ull lo = 0, hi = tmax;
-  while (hi - lo > 1) {
+  ull ans;
+  while (lo <= hi) {
     ull m = (lo + hi)/2;
     if (check(m)) {
-      lo = m;
+      ans = m;
+      lo = m + 1;
     } else {
-      hi = m;
+      hi = m - 1;
     }
   }
-  cout << lo << endl;
+  cout << ans << endl;
   return 0;
 }

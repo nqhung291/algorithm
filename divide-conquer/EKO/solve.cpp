@@ -11,46 +11,38 @@ The first and only line of output must contain the required height setting.
 */
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+ull N, M, t[1000001]; 
+ull tmax = 0;
 
-unsigned long long N, M, t[1000001]; 
-unsigned long long tmax = -1;
-
-unsigned long long amount(unsigned long long h) {
-  unsigned long long sum = 0;
-  for (unsigned long long i = 1; i <= N; i++) {
+ull check(ull h) {
+  ull sum = 0;
+  for (ull i = 1; i <= N; i++) {
     if (t[i] > h) {
       sum += (t[i] - h);
     }
   }
-  return sum;
+  return sum >= M;
 }
 
 int main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
-
   cin >> N >> M;
-  for (unsigned long long i=1;i<= N;i++) {
+  for (int i=1;i<= (int) N;i++) {
     cin >> t[i];
     tmax = max(tmax, t[i]);
   }
-
-  unsigned long long lo = 0, hi = tmax;
-  while (lo < hi - 1) {
-    unsigned long long m = (lo + hi)/2;
-    unsigned long long temp = amount(m);
-    if (temp == M) {
-      cout << m << endl;
-      return 0;
-    } else if (temp > M) {
+  ull lo = 0, hi = tmax;
+  while (hi - lo > 1) {
+    ull m = (lo + hi)/2;
+    if (check(m)) {
       lo = m;
     } else {
       hi = m;
     }
   }
-  if (amount(lo) >= M) {
-    cout << lo << endl;
-    return 0;
-  }
+  cout << lo << endl;
   return 0;
 }

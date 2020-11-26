@@ -9,7 +9,6 @@ int t;
 int m, k, p[mxN];
 ll sum;
 bool flag[mxN];
-string ans = "";
 
 bool check(ll limit) {
   memset(flag, 0, sizeof(flag));
@@ -29,19 +28,20 @@ bool check(ll limit) {
 }
 
 void solve() {
-  ll lo = 0, hi = sum, mid;
+  ll lo = 0, hi = sum, mid, ans;
   for (int i=1;i<=m;i++) {
     if (lo < p[i]) lo = p[i];
   }
-  while (lo < hi) {
+  while (lo <= hi) {
     mid = (lo + hi) / 2;
     if (check(mid)) {
-      hi = mid;
+      ans = mid;
+      hi = mid - 1;
     } else {
       lo = mid + 1;
     }
   }
-  check(lo);
+  check(ans);
   for (int i=1; i<=m;i++) {
     cout << p[i];
     if (i < m) cout << " ";

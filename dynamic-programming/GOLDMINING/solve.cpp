@@ -15,6 +15,7 @@ const int mxN = 100010;
 ull a[mxN];
 ull dp[mxN];
 
+// DP type: Minimum (Maximum) path to reach a target
 int main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);

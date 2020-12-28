@@ -1,3 +1,17 @@
+/*
+Given a sequence of integers a1,…,an. Compute the longest subsequence (elements are not necessarily continous) in which elements are in an increasing orders.
+
+Input
+Line 1 contains an integer n (1≤n≤104)
+Line 2 contains n integers a1,…,an
+Output
+Write the length of the longest subsequence found.
+Inp:
+10
+7 2 3 7 5 4 2 1 9 6
+Out:
+4
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

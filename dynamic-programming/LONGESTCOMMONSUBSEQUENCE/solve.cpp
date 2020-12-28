@@ -1,3 +1,19 @@
+/*
+A subsequence of a given sequence S=S1,…,Sn is obtained by removing some elements from S. Given two sequence of integers X=(X1,…,Xn) and Y=(Y1,…,Ym). Find the longest common subsequence of X and Y.
+
+Input
+Line 1 contains n and m (1≤n,m≤104)
+Line 2 contains X1,…,Xn
+Line 3 contains Y1,…,Ym
+Output
+Write the length of the longest subsequence of the given sequences
+Inp:
+7 10
+3 7 2 5 1 4 9
+4 3 2 3 6 1 5 4 9 7
+Out:
+5
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

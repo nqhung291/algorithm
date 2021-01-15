@@ -22,25 +22,27 @@ int bridges = 0;
 int out_edges_cnt = 0;
 vector<bool> is_ap(mxN, false); // is articulation points
 
-// at: current vertice
-// parent: previous vertice
-void dfs(int root, int at, int parent) {
+// u: current vertical
+// parent: previous vertical
+void dfs(int root, int u, int parent) {
   if (parent == root) out_edges_cnt++;
-  low[at] = ids[at] = cnt++;
-  for (int i = 0; i < (int) adj[at].size(); i++) {
-    int to = adj[at][i];
+  low[u] = ids[u] = cnt++;
+  for (int i = 0; i < (int) adj[u].size(); i++) {
+    int to = adj[u][i];
     if (to == parent) continue; // khong xet quay lai dinh ngay truoc
     if (ids[to] == -1) {
-      dfs(root, to, at);
-      low[at] = min(low[at], low[to]);
-      if (low[to] >= ids[at]) {
-       is_ap[at] = true;
+      dfs(root, to, u);
+      low[u] = min(low[u], low[to]);
+
+      if (low[to] >= ids[u]) {
+       is_ap[u] = true;
+      }
+
+      if (low[to] > ids[u]) {
+        bridges++;
       }
     } else {
-      low[at] = min(low[at], ids[to]); // khi node to is visited, thi no co kha nang co ids lower than current low[at]
-    }
-    if (low[to] > ids[at]) {
-      bridges++;
+      low[u] = min(low[u], ids[to]); // khi node to is visited, thi no co kha nang co ids lower than current low[u]
     }
   }
 }

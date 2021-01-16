@@ -28,6 +28,7 @@ typedef pair<int, int>          ii;
 typedef vector<ii>              vii; // vector of integer pairs
 typedef set<int>                si;
 typedef map<string, int>        msi;
+#define MP make_pair
 
 const int mxN = 2000010;
 int dp[mxN];
@@ -41,7 +42,7 @@ int main() {
   for (int i=1;i<=n;i++) {
     int s,t;
     cin >> s >> t;
-    p[i] = make_pair(s,t);
+    p[i] = MP(s,t);
     // dp[t] = max(dp[t], t-s);
   }
 

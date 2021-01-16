@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define pb push_back
+#define mp make_pair
+#define EACH(x, a) for (auto& x: a)
 typedef unsigned long long      ull;
 typedef long long               ll;
 typedef long double             ld;
@@ -32,8 +35,8 @@ int main() {
   for (int i=1; i<=m; i++) {
     int v1,v2;
     cin >> v1 >> v2;
-    adj[v1].push_back(v2);
-    adj[v2].push_back(v1);
+    adj[v1].pb(v2);
+    adj[v2].pb(v1);
   }
 
   int ans = 0;

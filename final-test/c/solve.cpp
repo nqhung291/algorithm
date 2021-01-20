@@ -15,16 +15,42 @@ typedef vector<ii>              vii; // vector of integer pairs
 typedef set<int>                si;
 typedef map<string, int>        msi;
 
-void read(char* file) {
-  freopen(file, "r", stdin);
-}
-
-void write(char* file) {
-  freopen(file, "w", stdout);
-}
+int t;
 
 int main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
+  cin >> t;
+  while (t--) {
+    int n;
+    int ans = 0;
+    cin >> n;
+    vi a(n);
+    each(e, a) {
+      cin >> e;
+    };
+    
+    vi temp;
+    int length;
+    while (1) {
+      int sum = 0;
+      if (a.size() == 1) {
+        break;
+      };
+      for (int i = 0; i < a.size(); i+=2) {
+        if (i == a.size() - 1) {
+          temp.pb(a[i]);
+        } else {
+          temp.pb(a[i] + a[i+1]);
+          sum = max(sum, a[i] + a[i+1]);
+        }
+      }
+      a = temp;
+      temp = vi();
+      ans += sum;
+    }
+    cout << ans << endl;
+  }
+  
   return 0;
 }
